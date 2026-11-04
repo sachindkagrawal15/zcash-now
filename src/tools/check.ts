@@ -17,7 +17,11 @@ export async function zcashCheck(args: z.infer<typeof checkInput>): Promise<Call
     );
   }
   const errors = findings.filter((finding) => finding.severity === 'error').length;
-  const lines = [`${label}${findings.length} findings: ${errors} errors, ${findings.length - errors} warnings.`, ''];
+  const count = (n: number, word: string) => `${n} ${word}${n === 1 ? '' : 's'}`;
+  const lines = [
+    `${label}${count(findings.length, 'finding')}: ${count(errors, 'error')}, ${count(findings.length - errors, 'warning')}.`,
+    '',
+  ];
   for (const finding of findings) {
     const source = finding.source ? ` Source: ${finding.source}` : '';
     lines.push(`- Line ${finding.line}, ${finding.severity} ${finding.rule}: ${finding.message} Fix: ${finding.fix}${source}`);

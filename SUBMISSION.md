@@ -1,3 +1,9 @@
+# Stadium submission
+
+Fields in the order the form shows them. Save a draft now. Finalize by 20:00 IST to be in the first judging session; a finalized entry stays editable until midnight.
+
+Before you can finalize you also need the demo video link, the public repo, the event feedback ratings and the terms checkbox.
+
 ## Project title
 
 ```
@@ -16,15 +22,19 @@ TODO: record the demo (3 minutes or less; judges watch only the first 3), upload
 
 ## Public repo with a README
 
-After you push, this is the URL for the GitHub account `gh` is signed in to:
+Your repo:
 
 ```
-https://github.com/sachindkagrawal18/zcash-now
+https://github.com/sachindkagrawal15/zcash-now
 ```
 
 ## Track
 
 Privacy (Zcash)
+
+## Themes (Privacy track)
+
+1. Private payment rails. Its brief lists "an MCP server or llms.txt so AI agents write current Zcash code" and names developers new to Zcash and agent builders as its users. If the form takes more than one theme, leave the other two unticked: they target first-time end users and disclosure or network privacy.
 
 ## One-line pitch (126 of 140 characters)
 
@@ -41,7 +51,7 @@ SDK or library. It is an npm package that MCP clients install. "other" also fits
 Optional for an SDK. Leave it blank, or after turning on GitHub Pages for `/docs`:
 
 ```
-https://sachindkagrawal18.github.io/zcash-now/llms.txt
+https://sachindkagrawal15.github.io/zcash-now/llms.txt
 ```
 
 ## Technologies used
@@ -53,22 +63,29 @@ TypeScript, Node.js 24, MCP TypeScript SDK v2, zod, gRPC (@grpc/grpc-js, @grpc/p
 ## Next 30-day milestone
 
 ```
-By 4 Dec: publish zcash-now to npm and the MCP Registry and serve llms.txt on GitHub Pages; prove all five recipes on testnet with transaction IDs, including the Noir Wallet recipe once Noir ships NU7 sends; get ZecHub to link the llms.txt and create-zcash-app to include the MCP config; route live lookups over Nym so the light-wallet server can't see developers' IPs; and keep the daily freshness job opening reviewed fact updates.
+By Fri 4 Dec (about 10 hours of work), ship zcash-now v1.0:
+1. Publish it on npm and the MCP Registry, and serve llms.txt on GitHub Pages.
+2. Prove all five recipes on testnet with transaction IDs. The Noir Wallet recipe follows once Noir ships NU7 sends; we're reporting the bug we found to the Noir team.
+3. Get ZecHub to link the llms.txt from its developer hub, and present it at a ZecHub Friday Lounge.
+4. Keep the facts fresh with the daily live checks, reviewed in pull requests.
+Stretch: route live lookups over Nym, so the light-wallet server can't see developers' IP addresses.
 ```
 
 ## Links to anything already started
 
-One per line. Add each bug report's link here once it's filed.
+One per line. The repo line works only after you push. Add each bug report's link once it's filed.
 
 ```
-https://github.com/sachindkagrawal18/zcash-now
+https://github.com/sachindkagrawal15/zcash-now
 https://testnet.zcashexplorer.app/transactions/c00460bfaef41be5147089572189c5548bf1fbc6454e1b532c09f9c717d06abe
+https://testnet.zcashexplorer.app/transactions/cc2d88b88890805b8a216b20adbbb492c3541271764526c234dfb40e607a8df4
 ```
 
 ## Feedback for the Zcash teams
 
 ```
 Noir Wallet (testnet extension): sends fail on NU7 testnet with "transaction uses an incorrect consensus branch id"; receiving and balances work. Its source has no testnet NU7 height or branch ID.
+Valar faucet: refused both a unified and a Sapling address with "the wallet cannot pay this address" and made no payouts in 24 hours.
 zec.rocks explorers: explorer.testnet.zec.rocks and explorer.zec.rocks return HTTP 503 after about 38 seconds.
 testnet.zcashexplorer.app: a 1 TAZ transfer from Orchard into Ironwood shows "Transaction fee 1.00015 TAZ"; it reads the Orchard part but not the Ironwood part.
 zcash-devtool: when send lost its connection while broadcasting ("peer closed connection"), the signed transaction stayed saved and its coins locked until expiry, with no retry or rebroadcast command. We rebroadcast the bytes from the wallet database.
@@ -85,13 +102,44 @@ A real shielded NU7 payment made by following zcash-now's send recipe. Replace i
 c00460bfaef41be5147089572189c5548bf1fbc6454e1b532c09f9c717d06abe
 ```
 
-### Privacy and trust note
+### Wallet birth height (optional)
+
+The block height at which the CLI wallet that sent that transaction (`hack-wallet`) was created. It tells a scanner where to start, so verification doesn't scan the whole chain.
 
 ```
-What stays private: zcash-now never asks for, stores or sends keys, seed phrases or balances; a secret guard refuses them on every tool. Its recipes keep amounts, senders and receivers shielded on-chain, fund from shielded balances and give servers viewing keys only.
-What it reveals, and to whom: the light-wallet server operator (zec.rocks by default) sees the developer's IP address, when each lookup happens and any transaction ID checked. GitHub sees who fetches llms.txt. The AI model provider sees prompts, code and transaction IDs, as with any agent work.
-What users must trust: the maintainers to keep facts accurate (each links its source and check date), zec.rocks to answer honestly (an explorer can cross-check it), npm and GitHub to serve the package unmodified, and the AI provider with whatever enters the chat.
-What we would fix next: route lookups over Nym, sign facts.json releases, re-run every recipe on testnet on a schedule, and extend the guard to transparent private keys. The guard can't undo a key already pasted into a chat.
+4580587
+```
+
+### Privacy and trust note (judges score Private from this; limit 3000 characters)
+
+```
+1. What stays private?
+zcash-now is keyless. It never asks for, stores, logs or sends seed phrases, spending keys, viewing keys or balances. A secret guard runs before every tool and refuses seed phrases and key encodings without echoing them. It runs locally over stdio, with no zcash-now server and no telemetry. The payments its recipes make are fully shielded: our test payment c00460bf… went from Ironwood to Ironwood, so amount, sender, receiver and memo are encrypted on-chain; explorers see only that a shielded transaction was mined. Recipes default to shielded-only addresses, shielded funding, viewing keys (not spending keys) on servers and random order tokens in memos. zcash_check flags transparent funding, personal data in memos, keys in logs and spending keys on servers.
+
+2. What does it reveal, and to whom?
+- The light-wallet server (testnet.zec.rocks by default) sees the developer's IP, when each live check runs and every transaction ID looked up, so it can link an IP to the payments someone checks.
+- The AI model provider sees prompts, the code the agent writes and checks, and any addresses or transaction IDs typed; zcash-now only keeps keys out of it.
+- GitHub and npm see who downloads the package or fetches llms.txt.
+- Faucets the recipes point to see your IP next to the address you claim with.
+- Explorer links from zcash_tx_status tell that explorer which transaction you opened.
+- A watch-payments server holding a viewing key sees every payment of that account; store the key like a password.
+- Memos are readable by the recipient and anyone with their viewing key.
+
+3. What do users have to trust?
+- Us, as maintainers, to keep facts and recipes accurate: each fact links its source and check date, and each recipe states its verification with transaction evidence. Open source (MIT).
+- zec.rocks, to report heights and transactions honestly. An explorer or another light-wallet server can cross-check it.
+- npm and GitHub, to serve the published code unmodified.
+- The AI model provider, with whatever enters the chat.
+- The wallet software the recipes drive (zcash-devtool, Noir Wallet), to handle keys correctly. zcash-now never sees them.
+No payment processor and no zcash-now server are involved.
+
+4. What would we fix next?
+- Route live lookups over Nym so the light-wallet server can't link a developer's IP to the transactions they check (ZCASH_NOW_OFFLINE=1 already turns lookups off).
+- Sign facts.json releases, and publish the npm package with provenance.
+- Re-run every recipe on testnet on a schedule, so "verified" can't go stale.
+- Extend the guard to transparent private keys. It can't undo a key already pasted into a chat, and its refusal says so.
+- Make explorer links opt-in.
+Known gaps today: Noir Wallet's testnet sends fail on NU7, so the browser recipe is unproven, and zcash-devtool doesn't retry a dropped broadcast (the send recipe documents our rebroadcast).
 ```
 
 ## Demo video script (3 minutes or less)

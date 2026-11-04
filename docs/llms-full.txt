@@ -40,7 +40,7 @@ Updated 2026-11-04. Each fact says how it was checked: read (a source page), pro
 
 ## Explorers
 
-- **works**: testnet.zcashexplorer.app shows a testnet transaction at /transactions/<txid>, including version-6 NU7 transactions, with its block and confirmations. It misreads Ironwood value: a 1 TAZ transfer into Ironwood showed "Transaction fee 1.00015 TAZ", because it counts the Orchard part of the transaction but not the Ironwood part. Take amounts and fees from the wallet. zexplorer.app is another explorer that answers. (testnet; [source](https://fancy-spectacles-44b.notion.site/Zcash-Developer-Resources-3ff3e52aeb1580a583c8e82b95a6f94e), probe 2026-11-04)
+- **works**: zexplorer.app shows a testnet transaction at /testnet/tx/<txid>, including version-6 NU7 transactions; the hack's agent guide recommends it. testnet.zcashexplorer.app shows them at /transactions/<txid> in a browser, blocks some scripted requests, and misreads Ironwood value: a 1 TAZ transfer into Ironwood showed "Transaction fee 1.00015 TAZ", because it counts the Orchard part of the transaction but not the Ironwood part. Take amounts and fees from the wallet. (testnet; [source](https://stadium.joinwebzero.com/programs/free-society-hack-2026/privacy/llms.txt), probe 2026-11-04)
 - **broken**: zec.rocks runs explorer.testnet.zec.rocks (testnet) and explorer.zec.rocks (mainnet), but on 4 Nov 2026 both accepted connections and then returned HTTP 503 after about 38 seconds. Link to testnet.zcashexplorer.app instead. Replaces: "explorer.testnet.zec.rocks works". (mainnet, testnet; [source](https://forum.zcashcommunity.com/t/block-explorer-testnet-infrastructure-2025/51451/8), probe 2026-11-04)
 
 ## Sdks
@@ -49,6 +49,7 @@ Updated 2026-11-04. Each fact says how it was checked: read (a source page), pro
 - **broken**: Noir Wallet's testnet extension receives TAZ and shows Ironwood balances, but on 4 Nov 2026 its sends on NU7 testnet failed with "transaction uses an incorrect consensus branch id": it signs for the upgrade before NU7, and its source has no testnet NU7 height or branch ID. Until that is fixed, pay from zcash-devtool. The SDK offers connect, getBalance, sendTransaction({ to, amount, memo, fundingSource }) and getTransactionHistory. Replaces: "Noir Wallet's testnet build can send on NU7 testnet". (mainnet, testnet; [source](https://github.com/NoirWallet/noir-wallet/releases), run 2026-11-04)
 - **unverified**: Thus Spoke Zakura v0.4 runs a disposable local regtest network in Docker with NU7 and Ironwood active, a faucet and on-demand mining. Its API takes pool 'ironwood' and rejects 'orchard'. Replaces: "pool: 'orchard' in the Thus Spoke Zakura API". (testnet; [source](https://github.com/zcashlabs/thus-spoke-zakura/releases), read 2026-11-04)
 - **unverified**: Zingolib has active Ironwood support work, and zshield-mcp reports real testnet payments through zingo-cli. (mainnet, testnet; [source](https://github.com/Steeve-Crypto/zshield-mcp), read 2026-11-04)
+- **unverified**: zkool2's zkool_graphql is a GraphQL wallet server with NU7 and Ironwood support, watch-only accounts from a viewing key, and built-in NEAR Intents and FROST. The hack's agent guide recommends it for backends and payment watchers. Run it with --allow-unauthenticated only on localhost: it then exposes seeds to anyone who can reach the port. (mainnet, testnet; [source](https://stadium.joinwebzero.com/programs/free-society-hack-2026/privacy/llms.txt), read 2026-11-04)
 - **broken**: WebZjs (@chainsafe/webzjs-wallet) is not on npm and has no Ironwood support. Building it needs Rust nightly, wasm-pack, just, yarn and a gRPC-web proxy. Replaces: "npm install @chainsafe/webzjs-wallet". (mainnet, testnet; [source](https://fancy-spectacles-44b.notion.site/Zcash-Developer-Resources-3ff3e52aeb1580a583c8e82b95a6f94e), read 2026-11-04)
 - **broken**: @zcash/monitor in ronykris/zcash-sdk wraps WebZjs, so it inherits WebZjs's NU7 problems. Its @zcash/uri package only builds ZIP 321 links. (mainnet, testnet; [source](https://github.com/ronykris/zcash-sdk), read 2026-11-04)
 - **broken**: zecli from crates.io makes Orchard-only addresses, which cannot receive funds. The git version needs a zidecar server, and none is hosted for testnet. Replaces: "cargo install zecli". (mainnet, testnet; [source](https://fancy-spectacles-44b.notion.site/Zcash-Developer-Resources-3ff3e52aeb1580a583c8e82b95a6f94e), read 2026-11-04)
@@ -81,6 +82,9 @@ Recipe `get-test-coins-cli` for the cli stack, verified on 2026-11-04. Evidence:
 zdt wallet -w ./w generate-address
 
 # Claim at https://fauzec.com/ with that address and complete the human check (1 TAZ per address every 24 hours).
+# Or use Fauzec's API, which has no human check (documented in the hack's agent guide; not tried here yet):
+#   curl -X POST https://fauzec.com/api/v1/claim -H 'Content-Type: application/json' -d '{"network":"testnet","address":"utest1..."}'
+#   curl https://fauzec.com/api/v1/status/testnet/<request_id>   (repeat until the state is final; it then carries the txid)
 # At the Free Society Hack, you can also post the address in the mentors chat.
 
 # Check that it arrived, then wait until it is spendable.

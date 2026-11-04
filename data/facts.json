@@ -12,7 +12,7 @@
     }
   },
   "explorerTx": {
-    "test": "https://testnet.zcashexplorer.app/transactions/{txid}"
+    "test": "https://zexplorer.app/testnet/tx/{txid}"
   },
   "referenceTx": {
     "test": "3d90ef5da3897c18eef10272e4828ac4d1e8733825a3f58a4dfcda548fbd1953"
@@ -235,10 +235,10 @@
       "networks": [
         "test"
       ],
-      "claim": "testnet.zcashexplorer.app shows a testnet transaction at /transactions/<txid>, including version-6 NU7 transactions, with its block and confirmations. It misreads Ironwood value: a 1 TAZ transfer into Ironwood showed \"Transaction fee 1.00015 TAZ\", because it counts the Orchard part of the transaction but not the Ironwood part. Take amounts and fees from the wallet. zexplorer.app is another explorer that answers.",
+      "claim": "zexplorer.app shows a testnet transaction at /testnet/tx/<txid>, including version-6 NU7 transactions; the hack's agent guide recommends it. testnet.zcashexplorer.app shows them at /transactions/<txid> in a browser, blocks some scripted requests, and misreads Ironwood value: a 1 TAZ transfer into Ironwood showed \"Transaction fee 1.00015 TAZ\", because it counts the Orchard part of the transaction but not the Ironwood part. Take amounts and fees from the wallet.",
       "status": "works",
-      "source": "https://fancy-spectacles-44b.notion.site/Zcash-Developer-Resources-3ff3e52aeb1580a583c8e82b95a6f94e",
-      "verifiedAt": "2026-11-04T07:18:00Z",
+      "source": "https://stadium.joinwebzero.com/programs/free-society-hack-2026/privacy/llms.txt",
+      "verifiedAt": "2026-11-04T16:50:00Z",
       "verifiedBy": "probe"
     },
     {
@@ -311,6 +311,19 @@
       "claim": "Zingolib has active Ironwood support work, and zshield-mcp reports real testnet payments through zingo-cli.",
       "status": "unverified",
       "source": "https://github.com/Steeve-Crypto/zshield-mcp",
+      "verifiedAt": "2026-11-04",
+      "verifiedBy": "read"
+    },
+    {
+      "id": "sdk.zkool2",
+      "topic": "sdks",
+      "networks": [
+        "main",
+        "test"
+      ],
+      "claim": "zkool2's zkool_graphql is a GraphQL wallet server with NU7 and Ironwood support, watch-only accounts from a viewing key, and built-in NEAR Intents and FROST. The hack's agent guide recommends it for backends and payment watchers. Run it with --allow-unauthenticated only on localhost: it then exposes seeds to anyone who can reach the port.",
+      "status": "unverified",
+      "source": "https://stadium.joinwebzero.com/programs/free-society-hack-2026/privacy/llms.txt",
       "verifiedAt": "2026-11-04",
       "verifiedBy": "read"
     },

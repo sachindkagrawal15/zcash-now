@@ -9,6 +9,9 @@ Recipe `get-test-coins-cli` for the cli stack, verified on 2026-11-04. Evidence:
 zdt wallet -w ./w generate-address
 
 # Claim at https://fauzec.com/ with that address and complete the human check (1 TAZ per address every 24 hours).
+# Or use Fauzec's API, which has no human check (documented in the hack's agent guide; not tried here yet):
+#   curl -X POST https://fauzec.com/api/v1/claim -H 'Content-Type: application/json' -d '{"network":"testnet","address":"utest1..."}'
+#   curl https://fauzec.com/api/v1/status/testnet/<request_id>   (repeat until the state is final; it then carries the txid)
 # At the Free Society Hack, you can also post the address in the mentors chat.
 
 # Check that it arrived, then wait until it is spendable.

@@ -10,6 +10,22 @@ AI coding agents trained before mid-2026 write code for a Zcash that no longer e
 
 zcash-now gives the agent dated, sourced facts, recipes proven on testnet, a lint for stale patterns and privacy leaks, and a live transaction check. It never touches keys or funds.
 
+## Demo
+
+- Video: TODO
+- Testnet transaction: [`c00460bf…`](https://zexplorer.app/testnet/tx/c00460bfaef41be5147089572189c5548bf1fbc6454e1b532c09f9c717d06abe). It sent 0.1 TAZ shielded, Ironwood to Ironwood, to a Noir Wallet address with the memo "trial 1". The wallet followed zcash-now's send recipe; the transaction is version 6 (NU7) and was mined at testnet height 4,581,860.
+- Sending wallet's birth height, for anyone given its viewing key: 4580587
+
+## Who it's for and the problem
+
+Developers new to Zcash, and agent builders, who write Zcash code with an AI assistant. The hack's Privacy track lists "an MCP server or llms.txt so AI agents write current Zcash code" under theme 1. Its organizers also published a static agent guide on 2 Nov, and within two days it had drifted. Every gap below was found and checked during the hack:
+
+- The hack's resources page and agent guide say NU7 mainnet isn't scheduled. librustzcash set its height to 3,543,405 on 21 Oct ([commit f53a9b46e8](https://github.com/zcash/librustzcash/commit/f53a9b46e8)).
+- The agent guide says testnet.zec.rocks runs lightwalletd v0.5.4. On 4 Nov it reported ECC LightWalletD v0.6.1.
+- Noir Wallet's testnet build sends fail on NU7 with "transaction uses an incorrect consensus branch id", though the guide lists it as a wallet to send from.
+- Valar's faucet refused shielded addresses, the zec.rocks explorers return HTTP 503, and testnet.zcashexplorer.app misreads Ironwood fees.
+- `@chainsafe/webzjs-wallet` returns 404 on npm, and the two old testnet light-wallet servers time out or don't resolve.
+
 ## Install
 
 Claude Code:
@@ -31,7 +47,7 @@ npm install && npm run build
 claude mcp add zcash-now -- node "$PWD/dist/src/cli.js"
 ```
 
-Agents without MCP can read `docs/llms.txt`, served by GitHub Pages at `https://<user>.github.io/zcash-now/llms.txt`.
+Agents without MCP can read `docs/llms.txt`, served by GitHub Pages at `https://sachindkagrawal15.github.io/zcash-now/llms.txt` once Pages is on.
 
 ## What the agent gets
 
