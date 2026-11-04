@@ -1,0 +1,21 @@
+# zcash-now
+
+> zcash-now keeps AI coding agents current on Zcash. Orchard has been closed to new funds since NU6.3 (Ironwood), NU7 is live on testnet with 25-second blocks, and several older servers and libraries no longer work. Every fact names its source and when it was last checked.
+
+Rules for agents writing Zcash code: use shielded funds and unified addresses; give servers a viewing key, never a spending key; let the SDK compute ZIP 317 fees; treat a payment as seen, then mined, then confirmed; keep personal data out of memos; never paste a seed phrase or key into a chat.
+
+## Facts
+
+- [Current Zcash facts](facts.md): network upgrades, pools, addresses, endpoints, faucets, explorers, SDK support, fees and payments
+
+## Recipes
+
+- [Get testnet coins (TAZ) into a wallet](recipes/get-test-coins-cli.md): cli, verified on 2026-11-04
+- [Connect Noir Wallet and send a shielded payment from a web app](recipes/noir-connect-send-react.md): react, unverified on 2026-11-04
+- [Build a ZIP 321 payment link](recipes/payment-link-node.md): node, partial on 2026-11-04
+- [Send a shielded payment from the command line](recipes/send-shielded-cli.md): cli, verified on 2026-11-04
+- [Watch for incoming payments with a viewing key](recipes/watch-payments-cli.md): cli, partial on 2026-11-04
+
+## Optional
+
+- [Everything in one file](llms-full.txt): all facts and recipes inline

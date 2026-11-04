@@ -1,0 +1,51 @@
+{
+  "name": "zcash-now-mcp",
+  "version": "0.1.0",
+  "description": "A keyless MCP server and llms.txt that keep AI coding agents current on Zcash: Ironwood, NU7 testnet, live endpoints and tested recipes.",
+  "type": "module",
+  "bin": {
+    "zcash-now-mcp": "dist/src/cli.js"
+  },
+  "files": [
+    "dist/src",
+    "proto",
+    "data",
+    "recipes",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test \"dist/test/**/*.test.js\"",
+    "start": "node dist/src/cli.js",
+    "smoke": "npm run build && node dist/scripts/smoke.js",
+    "freshness": "npm run build && node dist/scripts/freshness.js",
+    "build:llms": "npm run build && node dist/scripts/build-llms.js",
+    "prepublishOnly": "npm test && npm run build:llms"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "keywords": [
+    "zcash",
+    "mcp",
+    "model-context-protocol",
+    "llms.txt",
+    "ironwood",
+    "nu7",
+    "privacy"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@grpc/grpc-js": "^1.14.7",
+    "@grpc/proto-loader": "^0.8.1",
+    "@modelcontextprotocol/server": "^2.4.0",
+    "@scure/bip39": "^2.4.0",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@modelcontextprotocol/client": "^2.4.0",
+    "@types/node": "^24.19.2",
+    "typescript": "^7.0.2"
+  }
+}
