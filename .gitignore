@@ -1,0 +1,9 @@
+node_modules/
+dist/
+*.log
+.DS_Store
+
+# Never commit wallets or the keys that unlock them.
+wallet/
+*identity*.txt
+keys.toml
