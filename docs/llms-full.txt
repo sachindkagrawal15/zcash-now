@@ -6,11 +6,11 @@ Rules for agents writing Zcash code: use shielded funds and unified addresses; g
 
 # Current Zcash facts
 
-Updated 2026-11-04. Each fact says how it was checked: read (a source page), probe (a live server call) or run (a command that produced the result).
+Updated 2026-11-12. Each fact says how it was checked: read (a source page), probe (a live server call) or run (a command that produced the result).
 
 ## Upgrades
 
-- NU7 is active on testnet from height 4,465,026: blocks target 25 seconds, and v4 transactions are invalid. Replaces: "testnet blocks every 75 seconds", "v4 transactions". (testnet; [source](https://github.com/zcash/librustzcash/blob/eb38d7a373661179dbc083a2fd58b3a6c9b25818/components/zcash_protocol/src/consensus.rs), probe 2026-11-04)
+- NU7 is active on testnet from height 4,465,026: blocks target 25 seconds, and v4 transactions are invalid. Replaces: "testnet blocks every 75 seconds", "v4 transactions". (testnet; [source](https://github.com/zcash/librustzcash/blob/eb38d7a373661179dbc083a2fd58b3a6c9b25818/components/zcash_protocol/src/consensus.rs), probe 2026-11-12)
 - librustzcash set NU7's mainnet activation height to 3,543,405 on 21 Oct 2026. Mainnet was at height 3,541,302 on 4 Nov 2026, so at 75-second blocks activation is about 44 hours later. Zebra's mainnet readiness tracker (issue 11674) was still open. Replaces: "NU7 mainnet activation is not scheduled yet". (mainnet; [source](https://github.com/zcash/librustzcash/commit/f53a9b46e8), read 2026-11-04)
 - NU6.3 (Ironwood) activated on mainnet at block 3,428,143 on 28 Jul 2026, and on testnet at height 4,134,000, after a flaw in Orchard's circuit that could have allowed counterfeit ZEC. (mainnet, testnet; [source](https://www.theblock.co/news/ecosystems/2026-07-28-zcash-ironwood-upgrade-launching-new-shielded-pool-after-orchard-vulnerability-409934), read 2026-11-04)
 
@@ -26,9 +26,9 @@ Updated 2026-11-04. Each fact says how it was checked: read (a source page), pro
 
 ## Endpoints
 
-- **works**: Use testnet.zec.rocks:443 (gRPC over TLS) as the testnet light-wallet server. (testnet; [source](https://fancy-spectacles-44b.notion.site/Zcash-Developer-Resources-3ff3e52aeb1580a583c8e82b95a6f94e), probe 2026-11-04)
-- **works**: zec.rocks:443 serves mainnet light-wallet clients over gRPC with TLS. (mainnet; [source](https://zcash-sdk.nym.com/guidance/), probe 2026-11-04)
-- **broken**: The old testnet light-wallet servers lightwalletd.testnet.electriccoin.co and testnet.lightwalletd.com are dead. Replaces: "lightwalletd.testnet.electriccoin.co", "testnet.lightwalletd.com". (testnet; [source](https://fancy-spectacles-44b.notion.site/Zcash-Developer-Resources-3ff3e52aeb1580a583c8e82b95a6f94e), probe 2026-11-04)
+- **works**: Use testnet.zec.rocks:443 (gRPC over TLS) as the testnet light-wallet server. (testnet; [source](https://fancy-spectacles-44b.notion.site/Zcash-Developer-Resources-3ff3e52aeb1580a583c8e82b95a6f94e), probe 2026-11-12)
+- **works**: zec.rocks:443 serves mainnet light-wallet clients over gRPC with TLS. (mainnet; [source](https://zcash-sdk.nym.com/guidance/), probe 2026-11-12)
+- **broken**: The old testnet light-wallet servers lightwalletd.testnet.electriccoin.co and testnet.lightwalletd.com are dead. Replaces: "lightwalletd.testnet.electriccoin.co", "testnet.lightwalletd.com". (testnet; [source](https://fancy-spectacles-44b.notion.site/Zcash-Developer-Resources-3ff3e52aeb1580a583c8e82b95a6f94e), probe 2026-11-12)
 
 ## Faucets
 
@@ -40,8 +40,8 @@ Updated 2026-11-04. Each fact says how it was checked: read (a source page), pro
 
 ## Explorers
 
-- **works**: zexplorer.app shows a testnet transaction at /testnet/tx/<txid>, including version-6 NU7 transactions; the hack's agent guide recommends it. testnet.zcashexplorer.app shows them at /transactions/<txid> in a browser, blocks some scripted requests, and misreads Ironwood value: a 1 TAZ transfer into Ironwood showed "Transaction fee 1.00015 TAZ", because it counts the Orchard part of the transaction but not the Ironwood part. Take amounts and fees from the wallet. (testnet; [source](https://stadium.joinwebzero.com/programs/free-society-hack-2026/privacy/llms.txt), probe 2026-11-04)
-- **broken**: zec.rocks runs explorer.testnet.zec.rocks (testnet) and explorer.zec.rocks (mainnet), but on 4 Nov 2026 both accepted connections and then returned HTTP 503 after about 38 seconds. Link to testnet.zcashexplorer.app instead. Replaces: "explorer.testnet.zec.rocks works". (mainnet, testnet; [source](https://forum.zcashcommunity.com/t/block-explorer-testnet-infrastructure-2025/51451/8), probe 2026-11-04)
+- **works**: zexplorer.app shows a testnet transaction at /testnet/tx/<txid>, including version-6 NU7 transactions; the hack's agent guide recommends it. testnet.zcashexplorer.app shows them at /transactions/<txid> in a browser, blocks some scripted requests, and misreads Ironwood value: a 1 TAZ transfer into Ironwood showed "Transaction fee 1.00015 TAZ", because it counts the Orchard part of the transaction but not the Ironwood part. Take amounts and fees from the wallet. (testnet; [source](https://stadium.joinwebzero.com/programs/free-society-hack-2026/privacy/llms.txt), probe 2026-11-12)
+- **broken**: zec.rocks runs explorer.testnet.zec.rocks (testnet) and explorer.zec.rocks (mainnet), but on 4 Nov 2026 both accepted connections and then returned HTTP 503 after about 38 seconds. Link to testnet.zcashexplorer.app instead. Replaces: "explorer.testnet.zec.rocks works". (mainnet, testnet; [source](https://forum.zcashcommunity.com/t/block-explorer-testnet-infrastructure-2025/51451/8), probe 2026-11-12)
 
 ## Sdks
 
